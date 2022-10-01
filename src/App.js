@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import AddList from "./components/AddList";
+import List from "./components/List";
+import Nav from "./components/Nav";
+import styled from "styled-components";
+
+const StyledApp = styled.div`
+  max-width: 500px;
+  background-color: wheat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 function App() {
+  const [todoData, setTodoData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3001/todos")
+      .then((res) => res.json())
+      .then((data) => setTodoData(data))
+      .catch((e) => console.log(e));
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledApp className="App">
+      <AddList />
+      <List todoData={todoData} />
+      <Nav />
+    </StyledApp>
   );
 }
 

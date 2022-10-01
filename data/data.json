@@ -1,0 +1,24 @@
+{
+    "todos": [
+        {
+            "id": 1,
+            "todo": "이마트 장보기",
+            "isDone": true
+        },
+        {
+            "id": 2,
+            "todo": "고양이 밥주기",
+            "isDone": false
+        },
+        {
+            "id": 3,
+            "todo": "화분 물주기",
+            "isDone": false
+        },
+        {
+            "id": 4,
+            "todo": "끝내주게 숨쉬기",
+            "isDone": true
+        }
+    ]
+}
