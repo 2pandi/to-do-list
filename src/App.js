@@ -7,9 +7,9 @@ import styled from "styled-components";
 const StyledApp = styled.div`
   max-width: 500px;
   background-color: wheat;
-  display: flex;
+  display: grid;
   flex-direction: column;
-  align-items: center;
+  justify-items: center;
 `;
 
 function App() {
