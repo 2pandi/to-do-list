@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { BASE_URL, TODO_SERVER_URL } from "../util/api";
 
 const Container = styled.form`
   width: 80%;
@@ -62,13 +63,24 @@ const Shadow2 = styled.div`
 `;
 
 const AddList = () => {
-  const [input, setInput] = useState("");
+  const [todo, setTodo] = useState("");
+
   const onSubmit = (e) => {
     e.preventDefault();
+    const data = { todo, isDone: false };
+    fetch(TODO_SERVER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then(() => {
+      window.location.href = BASE_URL;
+    });
   };
+
   const onChange = (e) => {
-    setInput(e.target.value);
+    setTodo(e.target.value);
   };
+
   return (
     <>
       <Container onSubmit={onSubmit}>
@@ -76,7 +88,7 @@ const AddList = () => {
           onChange={onChange}
           className="input-box"
           type="text"
-          value={input}
+          value={todo}
           placeholder="할 일을 적어주세요"
         />
         <button className="add-list">Add list</button>
