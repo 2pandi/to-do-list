@@ -23,7 +23,7 @@ function App() {
   return (
     <StyledApp className="App">
       <AddList />
-      <List todoData={todoData} />
+      <List setTodoData={setTodoData} todoData={todoData} />
       <Nav />
     </StyledApp>
   );

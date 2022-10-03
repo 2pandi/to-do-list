@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { TODO_SERVER_URL } from "../util/api";
 
 library.add(fas, faCheckCircle);
 library.add(far, faCircle);
@@ -26,19 +27,11 @@ const TodoList = styled.ul`
     display: none;
   }
 
-  .checkBox + .checkBox-label > .uncheck {
+  .uncheck {
     color: gray;
   }
 
-  .checkBox:checked + .checkBox-label > .uncheck {
-    display: none;
-  }
-
-  .checkBox + .checkBox-label > .check {
-    display: none;
-  }
-
-  .checkBox:checked + .checkBox-label > .check {
+  .check {
     display: block;
     color: green;
   }
@@ -72,16 +65,48 @@ const TodoList = styled.ul`
   }
 `;
 
-const List = ({ todoData }) => {
+const List = ({ todoData, setTodoData }) => {
+  const onChange = (e) => {
+    const id = +e.target.id;
+    const targetData = todoData[todoData.findIndex((v) => v.id === id)];
+    const isChecked = e.target.checked;
+    setTodoData(
+      todoData.map((v) => {
+        if (v.id === id) return { ...v, isDone: isChecked };
+        return v;
+      })
+    );
+    fetch(TODO_SERVER_URL + id, {
+      method: "PATCH",
+      headers: { "Content-Type": "Application/json" },
+      body: JSON.stringify({ ...targetData, isDone: isChecked }),
+    });
+  };
+
   return (
     <TodoList>
       <h1 className="list-title">To do list ⚡️</h1>
       {todoData.map((data) => (
         <li className="list" key={data.id}>
-          <input className="checkBox" id={data.id} type="checkbox" />
+          <input
+            className="checkBox"
+            onChange={onChange}
+            id={data.id}
+            type="checkbox"
+            checked={data.isDone}
+          />
           <label className="checkBox-label" htmlFor={data.id}>
-            <FontAwesomeIcon className="check circle" icon="fa-check-circle" />
-            <FontAwesomeIcon className="uncheck circle" icon="far fa-circle" />
+            {data.isDone ? (
+              <FontAwesomeIcon
+                className="check circle"
+                icon="fa-check-circle"
+              />
+            ) : (
+              <FontAwesomeIcon
+                className="uncheck circle"
+                icon="far fa-circle"
+              />
+            )}
           </label>
           <span className="list-text">{data.todo}</span>
           <del className="list-text-del">{data.todo}</del>
