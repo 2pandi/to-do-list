@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faBriefcase,
   faCheckCircle,
+  faChild,
   faCircle,
+  faEllipsisH,
   fas,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { TODO_SERVER_URL } from "../util/api";
+import Categories from "./Categories";
 
 library.add(fas, faCheckCircle);
 library.add(far, faCircle);
@@ -20,7 +24,7 @@ const TodoList = styled.ul`
   margin: 30px 0;
 
   .list-title {
-    margin: 15px 0;
+    margin: 15px 0 5px 0;
   }
 
   .checkBox {
@@ -38,6 +42,7 @@ const TodoList = styled.ul`
 
   .circle {
     margin: 0 20px;
+    font-size: 1.7rem;
   }
 
   .list {
@@ -48,6 +53,7 @@ const TodoList = styled.ul`
     font-size: 1.3rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   .list:hover {
@@ -86,6 +92,7 @@ const List = ({ todoData, setTodoData }) => {
   return (
     <TodoList>
       <h1 className="list-title">To do list ⚡️</h1>
+      <Categories />
       {todoData.map((data) => (
         <li className="list" key={data.id}>
           <input
@@ -95,6 +102,8 @@ const List = ({ todoData, setTodoData }) => {
             type="checkbox"
             checked={data.isDone}
           />
+          <span className="list-text">{data.todo}</span>
+          <del className="list-text-del">{data.todo}</del>
           <label className="checkBox-label" htmlFor={data.id}>
             {data.isDone ? (
               <FontAwesomeIcon
@@ -108,8 +117,6 @@ const List = ({ todoData, setTodoData }) => {
               />
             )}
           </label>
-          <span className="list-text">{data.todo}</span>
-          <del className="list-text-del">{data.todo}</del>
         </li>
       ))}
     </TodoList>
