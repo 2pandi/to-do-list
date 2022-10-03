@@ -1,19 +1,17 @@
 import styled from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faBriefcase,
   faCheckCircle,
-  faChild,
   faCircle,
-  faEllipsisH,
   fas,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { TODO_SERVER_URL } from "../util/api";
 import Categories from "./Categories";
 
-library.add(fas, faCheckCircle);
+library.add(fas, faCheckCircle, faTrashAlt);
 library.add(far, faCircle);
 
 const TodoList = styled.ul`
@@ -40,11 +38,6 @@ const TodoList = styled.ul`
     color: green;
   }
 
-  .circle {
-    margin: 0 20px;
-    font-size: 1.7rem;
-  }
-
   .list {
     background-color: white;
     height: 3em;
@@ -63,11 +56,22 @@ const TodoList = styled.ul`
   .checkBox:checked ~ .list-text {
     display: none;
   }
-  .checkBox ~ .list-text-del {
+  .checkBox ~ .del {
     display: none;
   }
-  .checkBox:checked ~ .list-text-del {
+  .checkBox:checked ~ .del {
     display: block;
+  }
+
+  .icon-wrapper {
+    display: flex;
+  }
+  .icon {
+    margin: 0 5px;
+    font-size: 1.7rem;
+  }
+  .trash {
+    color: red;
   }
 `;
 
@@ -103,20 +107,23 @@ const List = ({ todoData, setTodoData }) => {
             checked={data.isDone}
           />
           <span className="list-text">{data.todo}</span>
-          <del className="list-text-del">{data.todo}</del>
-          <label className="checkBox-label" htmlFor={data.id}>
-            {data.isDone ? (
-              <FontAwesomeIcon
-                className="check circle"
-                icon="fa-check-circle"
-              />
-            ) : (
-              <FontAwesomeIcon
-                className="uncheck circle"
-                icon="far fa-circle"
-              />
-            )}
-          </label>
+          <del className="list-text del">{data.todo}</del>
+          <div className="icon-wrapper">
+            <label className="checkBox-label" htmlFor={data.id}>
+              {data.isDone ? (
+                <FontAwesomeIcon
+                  className="check icon"
+                  icon="fa-check-circle"
+                />
+              ) : (
+                <FontAwesomeIcon
+                  className="uncheck icon"
+                  icon="far fa-circle"
+                />
+              )}
+            </label>
+            <FontAwesomeIcon className="trash icon" icon="fas fa-trash-alt" />
+          </div>
         </li>
       ))}
     </TodoList>

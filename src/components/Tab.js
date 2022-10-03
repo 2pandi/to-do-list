@@ -23,7 +23,7 @@ const Div = styled.div`
   display: flex;
   align-items: center;
 
-  .icon {
+  .div-icon {
     margin: 0 5px;
   }
 `;
@@ -31,7 +31,7 @@ const Div = styled.div`
 const Tab = ({ color, icon, desc }) => {
   return (
     <Div color={color}>
-      <FontAwesomeIcon className="icon" icon={icon} />
+      <FontAwesomeIcon className="div-icon" icon={icon} />
       {desc}
     </Div>
   );
