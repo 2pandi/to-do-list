@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { TODO_SERVER_URL } from "../util/api";
 import Categories from "./Categories";
+import ChangeList from "./ChangeList";
 
 library.add(fas, faCheckCircle, faTrashAlt);
 library.add(far, faCircle);
@@ -97,6 +98,7 @@ const List = ({ todoData, setTodoData }) => {
     <TodoList>
       <h1 className="list-title">To do list ⚡️</h1>
       <Categories />
+      <ChangeList />
       {todoData.map((data) => (
         <li className="list" key={data.id}>
           <input
