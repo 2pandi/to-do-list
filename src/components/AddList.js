@@ -4,6 +4,7 @@ import { BASE_URL, TODO_SERVER_URL } from "../util/api";
 
 const Container = styled.form`
   width: 80%;
+  max-width: 390px;
   height: 180px;
   margin-top: 50px;
   border-radius: 30px;
@@ -40,6 +41,7 @@ const Container = styled.form`
 
 const Shadow1 = styled.div`
   width: 70%;
+  max-width: 350px;
   height: 150px;
   margin-top: 90px;
   border-radius: 30px;
@@ -52,6 +54,7 @@ const Shadow1 = styled.div`
 
 const Shadow2 = styled.div`
   width: 60%;
+  max-width: 300px;
   height: 120px;
   margin-top: 130px;
   border-radius: 30px;

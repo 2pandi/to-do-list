@@ -5,8 +5,7 @@ import Nav from "./components/Nav";
 import styled from "styled-components";
 
 const StyledApp = styled.div`
-  max-width: 500px;
-  background-color: wheat;
+  max-width: 100vw;
   display: grid;
   flex-direction: column;
   justify-items: center;
