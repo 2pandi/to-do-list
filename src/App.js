@@ -3,6 +3,8 @@ import AddList from "./components/AddList";
 import List from "./components/List";
 import Nav from "./components/Nav";
 import styled from "styled-components";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "./fbase";
 
 const StyledApp = styled.div`
   max-width: 100vw;
@@ -14,11 +16,16 @@ const StyledApp = styled.div`
 function App() {
   const [todoData, setTodoData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3001/todos")
-      .then((res) => res.json())
-      .then((data) => setTodoData(data))
-      .catch((e) => console.log(e));
+    const q = query(collection(db, "to-do-list"));
+    onSnapshot(q, (snapshot) => {
+      const todoArr = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTodoData(todoArr);
+    });
   }, []);
+
   return (
     <StyledApp className="App">
       <AddList />

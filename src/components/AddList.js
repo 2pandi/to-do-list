@@ -1,6 +1,7 @@
+import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import styled from "styled-components";
-import { BASE_URL, TODO_SERVER_URL } from "../util/api";
+import { db } from "../fbase";
 
 const Container = styled.form`
   width: 80%;
@@ -38,7 +39,6 @@ const Container = styled.form`
     color: white;
   }
 `;
-
 const Shadow1 = styled.div`
   width: 70%;
   max-width: 350px;
@@ -51,7 +51,6 @@ const Shadow1 = styled.div`
   z-index: 2;
   transform: rotate(-4.5deg);
 `;
-
 const Shadow2 = styled.div`
   width: 60%;
   max-width: 300px;
@@ -68,16 +67,11 @@ const Shadow2 = styled.div`
 const AddList = () => {
   const [todo, setTodo] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const data = { todo, isDone: false };
-    fetch(TODO_SERVER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    }).then(() => {
-      window.location.href = BASE_URL;
-    });
+    await addDoc(collection(db, "to-do-list"), data);
+    setTodo("");
   };
 
   const onChange = (e) => {
