@@ -11,6 +11,9 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { TODO_SERVER_URL } from "../util/api";
 import Categories from "./Categories";
 import ChangeList from "./ChangeList";
+import { useState } from "react";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../fbase";
 
 library.add(fas, faCheckCircle, faTrashAlt);
 library.add(far, faCircle);
@@ -77,6 +80,8 @@ const TodoList = styled.ul`
 `;
 
 const List = ({ todoData, setTodoData }) => {
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const onChange = (e) => {
     const id = +e.target.id;
     const targetData = todoData[todoData.findIndex((v) => v.id === id)];
@@ -94,11 +99,16 @@ const List = ({ todoData, setTodoData }) => {
     });
   };
 
+  const deleteTodo = async (e) => {
+    const docId = e.target.id;
+    await deleteDoc(doc(db, "to-do-list", docId)).then(console.log("deleted"));
+  };
+
   return (
     <TodoList>
       <h1 className="list-title">To do list ⚡️</h1>
       <Categories />
-      <ChangeList />
+      <ChangeList setIsDeleting={setIsDeleting} />
       {todoData.map((data) => (
         <li className="list" key={data.id}>
           <input
@@ -124,7 +134,14 @@ const List = ({ todoData, setTodoData }) => {
                 />
               )}
             </label>
-            <FontAwesomeIcon className="trash icon" icon="fas fa-trash-alt" />
+            {isDeleting && (
+              <FontAwesomeIcon
+                className="trash icon"
+                id={data.id}
+                onClick={deleteTodo}
+                icon="fas fa-trash-alt"
+              />
+            )}
           </div>
         </li>
       ))}

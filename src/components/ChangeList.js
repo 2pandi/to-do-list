@@ -34,7 +34,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-const ChangeList = () => {
+const ChangeList = ({ setIsDeleting }) => {
   const [toggle, setToggle] = useState(false);
   const [listState, setListState] = useState("진행중");
   const listStates = ["진행중", "전체", "완료"];
@@ -42,6 +42,11 @@ const ChangeList = () => {
   const openToggle = () => {
     setToggle(!toggle);
   };
+
+  const onDeleteClick = () => {
+    setIsDeleting((pre) => !pre);
+  };
+
   return (
     <StyledDiv>
       <button className="dropdown-button" onClick={openToggle}>
@@ -59,6 +64,7 @@ const ChangeList = () => {
           ))}
         </ul>
       )}
+      <button onClick={onDeleteClick}>삭제</button>
     </StyledDiv>
   );
 };
