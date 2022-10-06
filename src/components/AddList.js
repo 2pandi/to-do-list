@@ -69,7 +69,8 @@ const AddList = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const data = { todo, isDone: false };
+    const createdAt = new Date().toLocaleString();
+    const data = { todo, createdAt, isDone: false };
     await addDoc(collection(db, "to-do-list"), data);
     setTodo("");
   };

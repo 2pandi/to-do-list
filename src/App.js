@@ -3,7 +3,7 @@ import AddList from "./components/AddList";
 import List from "./components/List";
 import Nav from "./components/Nav";
 import styled from "styled-components";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "./fbase";
 
 const StyledApp = styled.div`
@@ -16,7 +16,7 @@ const StyledApp = styled.div`
 function App() {
   const [todoData, setTodoData] = useState([]);
   useEffect(() => {
-    const q = query(collection(db, "to-do-list"));
+    const q = query(collection(db, "to-do-list"), orderBy("createdAt", "desc"));
     onSnapshot(q, (snapshot) => {
       const todoArr = snapshot.docs.map((doc) => ({
         id: doc.id,
