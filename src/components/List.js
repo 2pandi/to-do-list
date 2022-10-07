@@ -8,9 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { TODO_SERVER_URL } from "../util/api";
 import Categories from "./Categories";
-import ChangeList from "./ChangeList";
+import ChangeListNav from "./ChangeListNav";
 import { useEffect, useState } from "react";
 import {
   doc,
@@ -111,11 +110,6 @@ const List = () => {
         return v;
       })
     );
-    fetch(TODO_SERVER_URL + id, {
-      method: "PATCH",
-      headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify({ ...targetData, isDone: isChecked }),
-    });
   };
 
   const deleteTodo = (id) => {
@@ -127,7 +121,7 @@ const List = () => {
     <TodoList>
       <h1 className="list-title">To do list ⚡️</h1>
       <Categories />
-      <ChangeList setIsDeleting={setIsDeleting} />
+      <ChangeListNav setIsDeleting={setIsDeleting} />
       {todoData.map((data) => (
         <li className="list" key={data.id}>
           <input

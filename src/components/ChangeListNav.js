@@ -34,7 +34,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-const ChangeList = ({ setIsDeleting }) => {
+const ChangeListNav = ({ setIsDeleting }) => {
   const [toggle, setToggle] = useState(false);
   const [listState, setListState] = useState("진행중");
   const listStates = ["진행중", "전체", "완료"];
@@ -69,4 +69,4 @@ const ChangeList = ({ setIsDeleting }) => {
   );
 };
 
-export default ChangeList;
+export default ChangeListNav;
