@@ -18,6 +18,7 @@ import {
   collection,
   orderBy,
   onSnapshot,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../fbase";
 
@@ -86,8 +87,11 @@ const TodoList = styled.ul`
 `;
 
 const List = () => {
-  const [isDeleting, setIsDeleting] = useState(false);
   const [todoData, setTodoData] = useState([]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingTodoId, SetEditingTodoId] = useState(null);
+  const [inputValue, setInputValue] = useState(null);
 
   useEffect(() => {
     const q = query(collection(db, "to-do-list"), orderBy("createdAt", "desc"));
@@ -98,9 +102,9 @@ const List = () => {
       }));
       setTodoData(todoArr);
     });
-  });
+  }, []);
 
-  const onChange = (e) => {
+  const onCheckboxChange = (e) => {
     const id = +e.target.id;
     const targetData = todoData[todoData.findIndex((v) => v.id === id)];
     const isChecked = e.target.checked;
@@ -117,6 +121,22 @@ const List = () => {
     deleteDoc(targetdoc);
   };
 
+  const onListClick = (id, todo) => {
+    setIsEditing(true);
+    SetEditingTodoId(id);
+    setInputValue(todo);
+  };
+
+  const onInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const onEditButtonClick = (id) => {
+    setDoc(doc(db, `to-do-list/${id}`), { todo: inputValue }, { merge: true });
+    setIsEditing(false);
+  };
+
+  console.log("렌더링됨");
   return (
     <TodoList>
       <h1 className="list-title">To do list ⚡️</h1>
@@ -126,12 +146,29 @@ const List = () => {
         <li className="list" key={data.id}>
           <input
             className="checkBox"
-            onChange={onChange}
+            onChange={onCheckboxChange}
             id={data.id}
             type="checkbox"
             checked={data.isDone}
           />
-          <span className="list-text">{data.todo}</span>
+          {isEditing && data.id === editingTodoId ? (
+            <>
+              <input
+                onChange={onInputChange}
+                value={inputValue}
+                autoFocus
+                // onBlur={() => setIsEditing(false)}
+              ></input>
+              <button onClick={(e) => onEditButtonClick(data.id)}>수정</button>
+            </>
+          ) : (
+            <span
+              className="list-text"
+              onClick={() => onListClick(data.id, data.todo)}
+            >
+              {data.todo}
+            </span>
+          )}
           <del className="list-text del">{data.todo}</del>
           <div className="icon-wrapper">
             <label className="checkBox-label" htmlFor={data.id}>
