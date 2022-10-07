@@ -35,10 +35,10 @@ const TodoList = styled.ul`
   .list-title {
     margin: 15px 0 5px 0;
   }
-
+  /* 
   .checkBox {
     display: none;
-  }
+  } */
 
   .uncheck {
     color: gray;
@@ -104,10 +104,10 @@ const List = () => {
     });
   }, []);
 
-  const onCheckboxChange = (e) => {
-    const id = +e.target.id;
+  const onCheckboxChange = (e, id) => {
     const targetData = todoData[todoData.findIndex((v) => v.id === id)];
     const isChecked = e.target.checked;
+    setDoc(doc(db, `to-do-list/${id}`), { isDone: isChecked }, { merge: true });
     setTodoData(
       todoData.map((v) => {
         if (v.id === id) return { ...v, isDone: isChecked };
