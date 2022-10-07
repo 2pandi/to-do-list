@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 
-memo
+memo.txt
 .env
