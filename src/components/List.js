@@ -35,10 +35,10 @@ const TodoList = styled.ul`
   .list-title {
     margin: 15px 0 5px 0;
   }
-  /* 
+
   .checkBox {
     display: none;
-  } */
+  }
 
   .uncheck {
     color: gray;
@@ -105,15 +105,8 @@ const List = () => {
   }, []);
 
   const onCheckboxChange = (e, id) => {
-    const targetData = todoData[todoData.findIndex((v) => v.id === id)];
     const isChecked = e.target.checked;
     setDoc(doc(db, `to-do-list/${id}`), { isDone: isChecked }, { merge: true });
-    setTodoData(
-      todoData.map((v) => {
-        if (v.id === id) return { ...v, isDone: isChecked };
-        return v;
-      })
-    );
   };
 
   const deleteTodo = (id) => {
@@ -146,8 +139,8 @@ const List = () => {
         <li className="list" key={data.id}>
           <input
             className="checkBox"
-            onChange={onCheckboxChange}
-            id={data.id}
+            onChange={(e) => onCheckboxChange(e, data.id)}
+            id={`${data.id}check`}
             type="checkbox"
             checked={data.isDone}
           />
@@ -171,7 +164,7 @@ const List = () => {
           )}
           <del className="list-text del">{data.todo}</del>
           <div className="icon-wrapper">
-            <label className="checkBox-label" htmlFor={data.id}>
+            <label className="checkBox-label" htmlFor={`${data.id}check`}>
               {data.isDone ? (
                 <FontAwesomeIcon
                   className="check icon"
