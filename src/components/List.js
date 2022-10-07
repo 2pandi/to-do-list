@@ -11,8 +11,15 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { TODO_SERVER_URL } from "../util/api";
 import Categories from "./Categories";
 import ChangeList from "./ChangeList";
-import { useState } from "react";
-import { doc, deleteDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import {
+  doc,
+  deleteDoc,
+  query,
+  collection,
+  orderBy,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../fbase";
 
 library.add(fas, faCheckCircle, faTrashAlt);
@@ -79,8 +86,20 @@ const TodoList = styled.ul`
   }
 `;
 
-const List = ({ todoData, setTodoData }) => {
+const List = () => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [todoData, setTodoData] = useState([]);
+
+  useEffect(() => {
+    const q = query(collection(db, "to-do-list"), orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      const todoArr = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTodoData(todoArr);
+    });
+  });
 
   const onChange = (e) => {
     const id = +e.target.id;
@@ -99,9 +118,9 @@ const List = ({ todoData, setTodoData }) => {
     });
   };
 
-  const deleteTodo = async (e) => {
-    const docId = e.target.id;
-    await deleteDoc(doc(db, "to-do-list", docId)).then(console.log("deleted"));
+  const deleteTodo = (id) => {
+    const targetdoc = doc(db, `to-do-list/${id}`);
+    deleteDoc(targetdoc);
   };
 
   return (
@@ -136,9 +155,9 @@ const List = ({ todoData, setTodoData }) => {
             </label>
             {isDeleting && (
               <FontAwesomeIcon
-                className="trash icon"
                 id={data.id}
-                onClick={deleteTodo}
+                onClick={() => deleteTodo(data.id)}
+                className="trash icon"
                 icon="fas fa-trash-alt"
               />
             )}
