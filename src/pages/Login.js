@@ -1,26 +1,53 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.form`
-  width: 80%;
+  min-width: 380px;
   max-width: 390px;
   height: 180px;
   margin-top: 50px;
   border-radius: 30px;
   background-color: #e2cbff;
+  color: #494949;
   display: grid;
   grid-template-columns: 1fr 2.5fr;
+  grid-template-rows: 1fr 1fr 2fr;
   flex-direction: column;
   grid-row: 1/2;
   grid-column: 1/2;
   z-index: 3;
 
+  .label {
+    margin-left: 30px;
+    height: 1.5em;
+  }
+
+  .idL {
+    margin-top: 36px;
+  }
+
+  .passwordL {
+    margin-top: 15px;
+  }
+
   .input-box {
+    height: 1.5em;
+    min-width: 180px;
     border: none;
     border-bottom: 1px solid black;
     background-color: transparent;
     padding: 0 15px;
-    margin: 10px 20px 0 20px;
-    grid-column: 1/3;
+    margin: 0 30px 0 20px;
+    grid-column: 2/3;
+    color: #494949;
+  }
+
+  .idI {
+    margin-top: 32px;
+  }
+
+  .passwordI {
+    margin-top: 12px;
   }
 
   .input-box:focus {
@@ -34,18 +61,26 @@ const Container = styled.form`
     border-radius: 20px;
     background-color: #494949;
     color: white;
+    cursor: pointer;
     grid-column: 1/2;
     grid-row: 3/4;
   }
   .join {
+    height: 2em;
+    width: fit-content;
     grid-column: 2/3;
     grid-row: 3/4;
     margin: 25px 0 0 20px;
   }
+  .join:hover {
+    text-decoration: underline;
+    text-underline-position: under;
+    cursor: pointer;
+  }
 `;
 const Shadow1 = styled.div`
-  width: 70%;
-  max-width: 350px;
+  min-width: 330px;
+  max-width: 340px;
   height: 150px;
   margin-top: 90px;
   border-radius: 30px;
@@ -56,8 +91,8 @@ const Shadow1 = styled.div`
   transform: rotate(-4.5deg);
 `;
 const Shadow2 = styled.div`
-  width: 60%;
-  max-width: 300px;
+  min-width: 280px;
+  max-width: 290px;
   height: 120px;
   margin-top: 130px;
   border-radius: 30px;
@@ -69,13 +104,24 @@ const Shadow2 = styled.div`
 `;
 
 const Login = () => {
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
   const onSubmit = () => {};
   const onClickJoin = () => {};
   return (
     <>
       <Container onSubmit={onSubmit}>
-        <input className="input-box"></input>
-        <input className="input-box"></input>
+        <label className="idL label">ID</label>
+        <input
+          className="idI input-box"
+          onChange={(e) => setId(e.target.value)}
+        ></input>
+        <label className="passwordL label">Password</label>
+        <input
+          className="passwordI input-box"
+          type="password"
+          onChange={(e) => setPw(e.target.value)}
+        ></input>
         <button className="login-button">Login</button>
         <span className="join" onClick={onClickJoin}>
           join
