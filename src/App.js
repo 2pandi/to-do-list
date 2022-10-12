@@ -24,7 +24,7 @@ function App() {
         </StyledApp>
       ) : (
         <StyledApp className="App">
-          <Login />
+          <Login setIsLoggedIn={setIsLoggedIn} />
         </StyledApp>
       )}
     </>

@@ -1,5 +1,7 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import styled from "styled-components";
+import { auth } from "../fbase";
 
 const Container = styled.form`
   min-width: 380px;
@@ -103,10 +105,19 @@ const Shadow2 = styled.div`
   transform: rotate(-9deg);
 `;
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const onSubmit = () => {};
+  const onSubmit = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, id, pw)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        setIsLoggedIn(true);
+      })
+      .catch((e) => console.log(e));
+  };
   const onClickJoin = () => {};
   return (
     <>
