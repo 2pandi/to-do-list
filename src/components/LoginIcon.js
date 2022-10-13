@@ -20,10 +20,10 @@ const StyledDiv = styled.div`
   }
 `;
 
-const LoginIcon = ({ src, alt, marginTop }) => {
+const LoginIcon = ({ onClick, src, alt, marginTop }) => {
   return (
     <>
-      <StyledDiv marginTop={marginTop}>
+      <StyledDiv onClick={onClick} marginTop={marginTop}>
         <img src={src} alt={alt} />
         Sign in with {alt}
       </StyledDiv>

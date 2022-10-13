@@ -1,4 +1,10 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithCredential,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { useState } from "react";
 import styled from "styled-components";
 import { auth } from "../fbase";
@@ -122,6 +128,34 @@ const Login = ({ setIsLoggedIn }) => {
       .catch((e) => console.log(e));
   };
   const onClickJoin = () => {};
+
+  const onGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        setIsLoggedIn(true);
+        console.log(user);
+        console.log(token);
+      })
+      .catch((e) => console.log(e));
+  };
+  const onGithub = () => {
+    const provider = new GithubAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        setIsLoggedIn(true);
+        console.log(user);
+        console.log(token);
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <>
       <Container onSubmit={onSubmit}>
@@ -143,8 +177,18 @@ const Login = ({ setIsLoggedIn }) => {
       </Container>
       <Shadow1></Shadow1>
       <Shadow2></Shadow2>
-      <LoginIcon src={googleIcon} alt="google" marginTop="50" />
-      <LoginIcon src={githubIcon} alt="github" marginTop="10" />
+      <LoginIcon
+        onClick={onGoogle}
+        src={googleIcon}
+        alt="google"
+        marginTop="50"
+      />
+      <LoginIcon
+        onClick={onGithub}
+        src={githubIcon}
+        alt="github"
+        marginTop="10"
+      />
     </>
   );
 };
