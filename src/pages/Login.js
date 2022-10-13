@@ -2,6 +2,9 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import styled from "styled-components";
 import { auth } from "../fbase";
+import googleIcon from "../icons/google-icon.png";
+import githubIcon from "../icons/github-icon.png";
+import LoginIcon from "../components/LoginIcon";
 
 const Container = styled.form`
   min-width: 380px;
@@ -140,6 +143,8 @@ const Login = ({ setIsLoggedIn }) => {
       </Container>
       <Shadow1></Shadow1>
       <Shadow2></Shadow2>
+      <LoginIcon src={googleIcon} alt="google" marginTop="50" />
+      <LoginIcon src={githubIcon} alt="github" marginTop="10" />
     </>
   );
 };
