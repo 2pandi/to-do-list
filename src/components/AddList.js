@@ -13,7 +13,7 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  grid-row: 1/2;
+  grid-row: 2/3;
   grid-column: 1/2;
   z-index: 3;
 
@@ -29,14 +29,10 @@ const Container = styled.form`
   .input-box:focus {
     outline: none;
   }
-  .add-list {
+  .add-list.button {
     width: 90px;
     height: 30px;
     margin-left: 20px;
-    border: none;
-    border-radius: 20px;
-    background-color: #494949;
-    color: white;
   }
 `;
 const Shadow1 = styled.div`
@@ -46,7 +42,7 @@ const Shadow1 = styled.div`
   margin-top: 90px;
   border-radius: 30px;
   background-color: #cbdaff;
-  grid-row: 1/2;
+  grid-row: 2/3;
   grid-column: 1/2;
   z-index: 2;
   transform: rotate(-4.5deg);
@@ -58,7 +54,7 @@ const Shadow2 = styled.div`
   margin-top: 130px;
   border-radius: 30px;
   background-color: #fff9c6;
-  grid-row: 1/2;
+  grid-row: 2/3;
   grid-column: 1/2;
   z-index: 1;
   transform: rotate(-9deg);
@@ -89,7 +85,7 @@ const AddList = () => {
           value={todo}
           placeholder="할 일을 적어주세요"
         />
-        <button className="add-list">Add list</button>
+        <button className="add-list button">Add list</button>
       </Container>
       <Shadow1></Shadow1>
       <Shadow2></Shadow2>

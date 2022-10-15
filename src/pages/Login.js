@@ -1,7 +1,6 @@
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
-  signInWithCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -124,6 +123,12 @@ const Login = ({ setIsLoggedIn }) => {
         const user = userCredential.user;
         console.log(user);
         setIsLoggedIn(true);
+        auth.currentUser
+          .getIdToken(true)
+          .then((idToken) => {
+            console.log(idToken);
+          })
+          .catch((e) => console.log(e));
       })
       .catch((e) => console.log(e));
   };
