@@ -120,7 +120,6 @@ const List = ({ userData }) => {
     }
   }, [snapshot]);
 
-  console.log();
   const onCheckboxChange = (e, id) => {
     const isChecked = e.target.checked;
     setDoc(doc(db, `to-do-list/${id}`), { isDone: isChecked }, { merge: true });
@@ -169,7 +168,7 @@ const List = ({ userData }) => {
                 autoFocus
                 // onBlur={() => setIsEditing(false)}
               ></input>
-              <button onClick={(e) => onEditButtonClick(data.id)}>수정</button>
+              <button onClick={() => onEditButtonClick(data.id)}>수정</button>
             </>
           ) : (
             <span
