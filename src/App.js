@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import Login from "./pages/Login";
 import Header from "./components/Header";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./fbase";
 
 const StyledApp = styled.div`
   max-width: 100vw;
@@ -25,11 +27,15 @@ const StyledApp = styled.div`
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
+  onAuthStateChanged(auth, (user) => {
+    if (user) setUserData(user);
+  });
   return (
     <>
       {isLoggedIn ? (
         <StyledApp className="App">
-          <Header setIsLoggedIn={setIsLoggedIn} />
+          <Header setIsLoggedIn={setIsLoggedIn} userData={userData} />
           <AddList />
           <List />
           <Nav />
