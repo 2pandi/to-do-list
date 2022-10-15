@@ -10,6 +10,8 @@ import { auth } from "../fbase";
 import googleIcon from "../icons/google-icon.png";
 import githubIcon from "../icons/github-icon.png";
 import LoginIcon from "../components/LoginIcon";
+import Modal from "./Modal";
+import Join from "../components/Join";
 
 const Container = styled.form`
   min-width: 380px;
@@ -116,6 +118,7 @@ const Shadow2 = styled.div`
 const Login = ({ setIsLoggedIn }) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const [joinOpen, setJoinOpen] = useState(false);
   const onSubmit = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, id, pw)
@@ -132,7 +135,14 @@ const Login = ({ setIsLoggedIn }) => {
       })
       .catch((e) => console.log(e));
   };
-  const onClickJoin = () => {};
+
+  const openJoin = () => {
+    setJoinOpen(true);
+  };
+
+  const closeJoin = () => {
+    setJoinOpen(false);
+  };
 
   const onGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -176,7 +186,7 @@ const Login = ({ setIsLoggedIn }) => {
           onChange={(e) => setPw(e.target.value)}
         ></input>
         <button className="login-button">Login</button>
-        <span className="join" onClick={onClickJoin}>
+        <span className="join" onClick={openJoin}>
           join
         </span>
       </Container>
@@ -194,6 +204,9 @@ const Login = ({ setIsLoggedIn }) => {
         alt="github"
         marginTop="10"
       />
+      <Modal open={joinOpen} close={closeJoin} header="Join and Plan!">
+        <Join />
+      </Modal>
     </>
   );
 };
