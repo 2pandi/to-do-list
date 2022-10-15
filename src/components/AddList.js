@@ -1,5 +1,5 @@
 import { addDoc, collection } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "../fbase";
 
@@ -60,13 +60,14 @@ const Shadow2 = styled.div`
   transform: rotate(-9deg);
 `;
 
-const AddList = () => {
+const AddList = ({ userData }) => {
   const [todo, setTodo] = useState("");
+  const [author, setAuthor] = useState(null);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const createdAt = new Date().toLocaleString();
-    const data = { todo, createdAt, isDone: false };
+    const data = { todo, createdAt, author, isDone: false };
     await addDoc(collection(db, "to-do-list"), data);
     setTodo("");
   };
@@ -74,6 +75,12 @@ const AddList = () => {
   const onChange = (e) => {
     setTodo(e.target.value);
   };
+
+  useEffect(() => {
+    if (userData) {
+      setAuthor(userData.uid);
+    }
+  }, [userData]);
 
   return (
     <>
