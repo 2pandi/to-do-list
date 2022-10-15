@@ -1,6 +1,5 @@
 import AddList from "./components/AddList";
 import List from "./components/List";
-import Nav from "./components/Nav";
 import styled from "styled-components";
 import { useState } from "react";
 import Login from "./pages/Login";
@@ -38,7 +37,6 @@ function App() {
           <Header setIsLoggedIn={setIsLoggedIn} userData={userData} />
           <AddList userData={userData} />
           <List userData={userData} />
-          <Nav />
         </StyledApp>
       ) : (
         <StyledApp className="App">
