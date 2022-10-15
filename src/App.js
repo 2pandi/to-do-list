@@ -37,7 +37,7 @@ function App() {
         <StyledApp className="App">
           <Header setIsLoggedIn={setIsLoggedIn} userData={userData} />
           <AddList userData={userData} />
-          <List />
+          <List userData={userData} />
           <Nav />
         </StyledApp>
       ) : (

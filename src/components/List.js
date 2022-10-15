@@ -19,6 +19,7 @@ import {
   orderBy,
   onSnapshot,
   setDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../fbase";
 
@@ -86,24 +87,40 @@ const TodoList = styled.ul`
   }
 `;
 
-const List = () => {
+const List = ({ userData }) => {
   const [todoData, setTodoData] = useState([]);
+  const [snapshot, setSnapshot] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingTodoId, SetEditingTodoId] = useState(null);
   const [inputValue, setInputValue] = useState(null);
+  const authorUid = userData.uid;
 
   useEffect(() => {
-    const q = query(collection(db, "to-do-list"), orderBy("createdAt", "desc"));
-    onSnapshot(q, (snapshot) => {
+    const q = query(
+      collection(db, "to-do-list"),
+      where("author", "==", authorUid),
+      orderBy("createdAt", "desc")
+    );
+    const unsuscribe = onSnapshot(q, (snapshot) => {
+      setSnapshot(snapshot);
+    });
+    return () => {
+      if (authorUid) unsuscribe();
+    };
+  }, [authorUid]);
+
+  useEffect(() => {
+    if (snapshot) {
       const todoArr = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setTodoData(todoArr);
-    });
-  }, []);
+    }
+  }, [snapshot]);
 
+  console.log();
   const onCheckboxChange = (e, id) => {
     const isChecked = e.target.checked;
     setDoc(doc(db, `to-do-list/${id}`), { isDone: isChecked }, { merge: true });
