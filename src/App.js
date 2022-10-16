@@ -1,7 +1,7 @@
 import AddList from "./components/AddList";
 import List from "./components/List";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import { onAuthStateChanged } from "firebase/auth";
@@ -25,11 +25,22 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [userData, setUserData] = useState(null);
+
   onAuthStateChanged(auth, (user) => {
     if (user) setUserData(user);
   });
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setUserData(auth.currentUser);
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [userData]);
+
   return (
     <>
       {isLoggedIn ? (

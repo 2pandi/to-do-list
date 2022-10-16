@@ -95,7 +95,13 @@ const List = ({ userData }) => {
   const [editingTodoId, SetEditingTodoId] = useState(null);
   const [inputValue, setInputValue] = useState(null);
   const [listState, setListState] = useState("전체");
-  const authorUid = userData.uid;
+  const [authorUid, setAuthorUid] = useState(null);
+
+  useEffect(() => {
+    if (userData) {
+      setAuthorUid(userData.uid);
+    }
+  }, [userData]);
 
   useEffect(() => {
     let q;

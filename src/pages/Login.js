@@ -119,9 +119,10 @@ const Login = ({ setIsLoggedIn }) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [joinOpen, setJoinOpen] = useState(false);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, id, pw)
+    return signInWithEmailAndPassword(auth, id, pw)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
@@ -148,12 +149,8 @@ const Login = ({ setIsLoggedIn }) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
+        GoogleAuthProvider.credentialFromResult(result);
         setIsLoggedIn(true);
-        console.log(user);
-        console.log(token);
       })
       .catch((e) => console.log(e));
   };
@@ -161,12 +158,8 @@ const Login = ({ setIsLoggedIn }) => {
     const provider = new GithubAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GithubAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
+        GithubAuthProvider.credentialFromResult(result);
         setIsLoggedIn(true);
-        console.log(user);
-        console.log(token);
       })
       .catch((e) => console.log(e));
   };
