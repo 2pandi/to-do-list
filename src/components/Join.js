@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { auth } from "../fbase";
 
@@ -10,6 +10,7 @@ const StyledJoin = styled.div`
   top: 150px;
   display: grid;
   grid-template-columns: 1fr 3fr;
+  grid-template-rows: repeat(3, 39px 22px);
   justify-items: center;
   align-items: center;
   z-index: 4;
@@ -32,12 +33,19 @@ const StyledJoin = styled.div`
     grid-column: 1/3;
     font-size: 1.5em;
   }
+  .warning {
+    grid-column: 2/3;
+    justify-self: start;
+  }
 `;
 
 const Join = () => {
-  const [email, setEmail] = useState(null);
-  const [pw, setPw] = useState(null);
-  const [CPw, setCPw] = useState(null);
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [CPw, setCPw] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
+  const [validPw, setValidPw] = useState(true);
+  const [validCPw, setValidCPw] = useState(true);
   const [isJoined, setIsJoined] = useState(false);
 
   const onEmailChange = (e) => setEmail(e.target.value);
@@ -52,20 +60,49 @@ const Join = () => {
         .catch((e) => console.log(e));
   };
 
+  const validateEmail = (email) => {
+    const re =
+      /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+  };
+
+  const validatePw = (password) => {
+    const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+    return re.test(password);
+  };
+
+  useEffect(() => {
+    if (email !== "") {
+      setValidEmail(validateEmail(email));
+    }
+    if (pw !== "") {
+      setValidPw(validatePw(pw));
+    }
+    if (CPw !== "") {
+      setValidCPw(pw === CPw);
+    }
+  }, [email, pw, CPw]);
+
   return (
     <>
       {isJoined ? (
         <StyledJoin>
-          <div className="Joined">Thank you for Joining 🥰</div>
+          <div className="Joined">Thank you for Joining!🥰</div>
         </StyledJoin>
       ) : (
         <StyledJoin>
           <label className="email join-label">Email</label>
           <input
             className="join-input"
+            type="email"
             onChange={onEmailChange}
             value={email}
           ></input>
+          {validEmail ? (
+            <div />
+          ) : (
+            <div className="warning">Invalid Email.🥵</div>
+          )}
           <label className="password join-label">Password</label>
           <input
             className="join-input"
@@ -73,6 +110,11 @@ const Join = () => {
             value={pw}
             type="password"
           ></input>
+          {validPw ? (
+            <div />
+          ) : (
+            <div className="warning">Invalid Password.🥵</div>
+          )}
           <label className="confirm-password join-label">{`Confirm\nPassword`}</label>
           <input
             className="join-input"
@@ -80,6 +122,11 @@ const Join = () => {
             value={CPw}
             type="password"
           ></input>
+          {validCPw ? (
+            <div />
+          ) : (
+            <div className="warning">Passwords do not match.🥵</div>
+          )}
           <button className="join button" onClick={onJoinClick}>
             Join
           </button>
