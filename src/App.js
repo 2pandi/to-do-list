@@ -32,14 +32,15 @@ function App() {
     if (user) setUserData(user);
   });
 
-  useEffect(() => {
-    if (auth.currentUser) {
-      setUserData(auth.currentUser);
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [userData]);
+  // 로그인 영속을 위해 서버 필요
+  // useEffect(() => {
+  //   if (auth.currentUser) {
+  //     setUserData(auth.currentUser);
+  //     setIsLoggedIn(true);
+  //   } else {
+  //     setIsLoggedIn(false);
+  //   }
+  // }, [userData]);
 
   return (
     <>
