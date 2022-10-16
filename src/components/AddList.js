@@ -7,14 +7,14 @@ const Container = styled.form`
   width: 80%;
   max-width: 390px;
   height: 180px;
-  margin-top: 50px;
   border-radius: 30px;
   background-color: #e2cbff;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  grid-row: 2/3;
   grid-column: 1/2;
+  grid-row: 1/2;
   z-index: 3;
 
   .input-box {
@@ -29,6 +29,7 @@ const Container = styled.form`
   .input-box:focus {
     outline: none;
   }
+
   .add-list.button {
     width: 90px;
     height: 30px;
@@ -42,7 +43,7 @@ const Shadow1 = styled.div`
   margin-top: 90px;
   border-radius: 30px;
   background-color: #cbdaff;
-  grid-row: 2/3;
+  grid-row: 1/2;
   grid-column: 1/2;
   z-index: 2;
   transform: rotate(-4.5deg);
@@ -54,7 +55,7 @@ const Shadow2 = styled.div`
   margin-top: 130px;
   border-radius: 30px;
   background-color: #fff9c6;
-  grid-row: 2/3;
+  grid-row: 1/2;
   grid-column: 1/2;
   z-index: 1;
   transform: rotate(-9deg);
@@ -84,18 +85,19 @@ const AddList = ({ userData }) => {
 
   return (
     <>
-      <Container onSubmit={onSubmit}>
+      <Container className="AddList" onSubmit={onSubmit}>
         <input
-          onChange={onChange}
           className="input-box"
+          onChange={onChange}
           type="text"
           value={todo}
           placeholder="할 일을 적어주세요"
+          required
         />
         <button className="add-list button">Add list</button>
       </Container>
-      <Shadow1></Shadow1>
-      <Shadow2></Shadow2>
+      <Shadow1 className="AddList-shadow"></Shadow1>
+      <Shadow2 className="AddList-shadow"></Shadow2>
     </>
   );
 };

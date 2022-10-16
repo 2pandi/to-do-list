@@ -1,17 +1,17 @@
-import AddList from "./components/AddList";
-import List from "./components/List";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import Login from "./pages/Login";
+import { useState } from "react";
 import Header from "./components/Header";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./fbase";
+import Container from "./components/Container";
 
 const StyledApp = styled.div`
-  max-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(45deg, #d3cce3, #e9e4f0);
   display: grid;
-  flex-direction: column;
   justify-items: center;
+  align-items: center;
 
   .button {
     border: none;
@@ -46,13 +46,26 @@ function App() {
     <>
       {isLoggedIn ? (
         <StyledApp className="App">
-          <Header setIsLoggedIn={setIsLoggedIn} userData={userData} />
-          <AddList userData={userData} />
-          <List userData={userData} />
+          <Header
+            className="header"
+            setIsLoggedIn={setIsLoggedIn}
+            userData={userData}
+          />
+          <Container
+            className="Container"
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            userData={userData}
+          />
         </StyledApp>
       ) : (
         <StyledApp className="App">
-          <Login setIsLoggedIn={setIsLoggedIn} />
+          <Container
+            className="Container"
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            userData={userData}
+          />
         </StyledApp>
       )}
     </>

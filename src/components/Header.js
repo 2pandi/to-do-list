@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { auth } from "../fbase";
 
 const HeaderContainer = styled.div`
-  width: 90%;
+  position: absolute;
   display: flex;
-  justify-content: flex-end;
+  align-self: flex-start;
+  justify-self: flex-end;
 
   .logout.button {
     width: 80px;
@@ -15,6 +16,7 @@ const HeaderContainer = styled.div`
   }
   .greetings {
     margin: 17px;
+    font-weight: 600;
   }
 `;
 
@@ -40,8 +42,8 @@ const Header = ({ setIsLoggedIn, userData }) => {
   }, [userData]);
 
   return (
-    <HeaderContainer>
-      {userName && <span className="greetings">hi, {userName}!</span>}
+    <HeaderContainer className="Header">
+      {userName && <span className="greetings">Hi, {userName}!</span>}
       <button className="logout button" onClick={onLogoutClick}>
         Logout
       </button>

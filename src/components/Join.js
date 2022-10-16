@@ -31,6 +31,7 @@ const StyledJoin = styled.div`
   }
   .Joined {
     grid-column: 1/3;
+    grid-row: 1/7;
     font-size: 1.5em;
   }
   .warning {

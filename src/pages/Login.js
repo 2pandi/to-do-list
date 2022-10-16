@@ -13,21 +13,27 @@ import LoginIcon from "../components/LoginIcon";
 import Modal from "./Modal";
 import Join from "../components/Join";
 
-const Container = styled.form`
-  min-width: 380px;
-  max-width: 390px;
-  height: 180px;
-  margin-top: 50px;
-  border-radius: 30px;
-  background-color: #e2cbff;
-  color: #494949;
+const StyledLogin = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2.5fr;
-  grid-template-rows: 1fr 1fr 2fr;
-  flex-direction: column;
-  grid-row: 1/2;
-  grid-column: 1/2;
-  z-index: 3;
+  justify-items: center;
+  grid-template-rows: 230px 100px 100px auto;
+
+  .login-form {
+    min-width: 80%;
+    max-width: 390px;
+    height: 180px;
+    border-radius: 30px;
+    background-color: #e2cbff;
+    color: #494949;
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    grid-template-rows: 1fr 1fr 2fr;
+    flex-direction: column;
+    grid-row: 1/2;
+    grid-column: 1/2;
+    z-index: 3;
+  }
 
   .label {
     margin-left: 30px;
@@ -91,7 +97,7 @@ const Container = styled.form`
   }
 `;
 const Shadow1 = styled.div`
-  min-width: 330px;
+  min-width: 70%;
   max-width: 340px;
   height: 150px;
   margin-top: 90px;
@@ -103,7 +109,7 @@ const Shadow1 = styled.div`
   transform: rotate(-4.5deg);
 `;
 const Shadow2 = styled.div`
-  min-width: 280px;
+  min-width: 60%;
   max-width: 290px;
   height: 120px;
   margin-top: 130px;
@@ -120,9 +126,9 @@ const Login = ({ setIsLoggedIn }) => {
   const [pw, setPw] = useState("");
   const [joinOpen, setJoinOpen] = useState(false);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    return signInWithEmailAndPassword(auth, id, pw)
+    return await signInWithEmailAndPassword(auth, id, pw)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
@@ -165,8 +171,8 @@ const Login = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <>
-      <Container onSubmit={onSubmit}>
+    <StyledLogin className="Login">
+      <form className="login-form" onSubmit={onSubmit}>
         <label className="idL label">ID</label>
         <input
           className="idI input-box"
@@ -182,9 +188,9 @@ const Login = ({ setIsLoggedIn }) => {
         <span className="join" onClick={openJoin}>
           join
         </span>
-      </Container>
-      <Shadow1></Shadow1>
-      <Shadow2></Shadow2>
+      </form>
+      <Shadow1 className="Login-shadow"></Shadow1>
+      <Shadow2 className="Login-shadow"></Shadow2>
       <LoginIcon
         onClick={onGoogle}
         src={googleIcon}
@@ -200,7 +206,7 @@ const Login = ({ setIsLoggedIn }) => {
       <Modal open={joinOpen} close={closeJoin} header="Join and Plan!">
         <Join />
       </Modal>
-    </>
+    </StyledLogin>
   );
 };
 

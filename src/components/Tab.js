@@ -22,6 +22,7 @@ const Div = styled.div`
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   .div-icon {
     margin: 0 5px;
@@ -30,7 +31,7 @@ const Div = styled.div`
 
 const Tab = ({ color, icon, desc }) => {
   return (
-    <Div color={color}>
+    <Div className="Tab" color={color}>
       <FontAwesomeIcon className="div-icon" icon={icon} />
       {desc}
     </Div>

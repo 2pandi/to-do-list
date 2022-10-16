@@ -9,7 +9,7 @@ const Navbar = styled.nav`
 
 const Categories = () => {
   return (
-    <Navbar>
+    <Navbar className="Categories">
       <Tab color="#E2CBFF" icon="fas fa-child" desc="Personal" />
       <Tab color="#CBDAFF" icon="fas fa-briefcase" desc="Work" />
       <Tab color="#FFF9C6" icon="far fa-star" desc="Wish" />
