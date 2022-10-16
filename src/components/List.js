@@ -94,21 +94,42 @@ const List = ({ userData }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingTodoId, SetEditingTodoId] = useState(null);
   const [inputValue, setInputValue] = useState(null);
+  const [listState, setListState] = useState("전체");
   const authorUid = userData.uid;
 
   useEffect(() => {
-    const q = query(
-      collection(db, "to-do-list"),
-      where("author", "==", authorUid),
-      orderBy("createdAt", "desc")
-    );
-    const unsuscribe = onSnapshot(q, (snapshot) => {
+    let q;
+    if (listState === "전체") {
+      q = query(
+        collection(db, "to-do-list"),
+        where("author", "==", authorUid),
+        orderBy("isDone", "asc"),
+        orderBy("createdAt", "desc")
+      );
+    }
+    if (listState === "완료") {
+      q = query(
+        collection(db, "to-do-list"),
+        where("author", "==", authorUid),
+        where("isDone", "==", true),
+        orderBy("createdAt", "desc")
+      );
+    }
+    if (listState === "진행중") {
+      q = query(
+        collection(db, "to-do-list"),
+        where("author", "==", authorUid),
+        where("isDone", "==", false),
+        orderBy("createdAt", "desc")
+      );
+    }
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       setSnapshot(snapshot);
     });
     return () => {
-      if (authorUid) unsuscribe();
+      if (authorUid) unsubscribe();
     };
-  }, [authorUid]);
+  }, [listState, authorUid]);
 
   useEffect(() => {
     if (snapshot) {
@@ -150,7 +171,11 @@ const List = ({ userData }) => {
     <TodoList>
       <h1 className="list-title">To do list ⚡️</h1>
       <Categories />
-      <ChangeListNav setIsDeleting={setIsDeleting} />
+      <ChangeListNav
+        listState={listState}
+        setListState={setListState}
+        setIsDeleting={setIsDeleting}
+      />
       {todoData.map((data) => (
         <li className="list" key={data.id}>
           <input

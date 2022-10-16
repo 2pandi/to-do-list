@@ -34,10 +34,9 @@ const StyledDiv = styled.div`
   }
 `;
 
-const ChangeListNav = ({ setIsDeleting }) => {
+const ChangeListNav = ({ setIsDeleting, listState, setListState }) => {
   const [toggle, setToggle] = useState(false);
-  const [listState, setListState] = useState("진행중");
-  const listStates = ["진행중", "전체", "완료"];
+  const listStates = ["전체", "진행중", "완료"];
 
   const openToggle = () => {
     setToggle(!toggle);
