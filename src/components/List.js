@@ -270,6 +270,7 @@ const List = ({ userData }) => {
           listState={listState}
           setListState={setListState}
           setIsDeleting={setIsDeleting}
+          isDeleting={isDeleting}
         />
       </header>
       <StyledUl className="list-ul">

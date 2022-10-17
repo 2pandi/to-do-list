@@ -12,7 +12,12 @@ const StyledDiv = styled.div`
   }
 `;
 
-const ChangeListNav = ({ setIsDeleting, listState, setListState }) => {
+const ChangeListNav = ({
+  setIsDeleting,
+  listState,
+  setListState,
+  isDeleting,
+}) => {
   const listStates = ["전체 리스트", "진행중 리스트", "완료 리스트"];
 
   const onDeleteClick = () => {
@@ -26,9 +31,15 @@ const ChangeListNav = ({ setIsDeleting, listState, setListState }) => {
         listState={listState}
         listStates={listStates}
       />
-      <button className="delete button" onClick={onDeleteClick}>
-        삭제
-      </button>
+      {isDeleting ? (
+        <button className="delete button" onClick={onDeleteClick}>
+          완료
+        </button>
+      ) : (
+        <button className="delete button" onClick={onDeleteClick}>
+          삭제
+        </button>
+      )}
     </StyledDiv>
   );
 };
