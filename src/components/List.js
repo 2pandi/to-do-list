@@ -66,7 +66,6 @@ const StyledUl = styled.ul`
 
   .list {
     box-sizing: border-box;
-    background-color: white;
     height: 3em;
     min-width: 380px;
     border-radius: 15px;
@@ -76,10 +75,37 @@ const StyledUl = styled.ul`
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    :hover {
+      transition: all 0.3s;
+    }
   }
 
-  .list:hover {
-    background-color: skyblue;
+  .list.personal {
+    border-left: #e2cbff 15px solid;
+    :hover {
+      background-color: #e2cbff;
+    }
+  }
+
+  .list.work {
+    border-left: #cbdaff 15px solid;
+    :hover {
+      background-color: #cbdaff;
+    }
+  }
+
+  .list.wish {
+    border-left: #fff9c6 15px solid;
+    :hover {
+      background-color: #fff9c6;
+    }
+  }
+
+  .list.etc {
+    border-left: #e8f6d0 15px solid;
+    :hover {
+      background-color: #e8f6d0;
+    }
   }
 
   .edit-list {
@@ -149,6 +175,8 @@ const List = ({ userData }) => {
   const [inputValue, setInputValue] = useState(null);
   const [listState, setListState] = useState("전체 리스트");
   const [authorUid, setAuthorUid] = useState(null);
+  const [selectedCategory, SetselectedCategory] = useState(null);
+  const [categorySelected, SetCategorySelected] = useState(false);
 
   useEffect(() => {
     if (userData) {
@@ -192,13 +220,16 @@ const List = ({ userData }) => {
 
   useEffect(() => {
     if (snapshot) {
-      const todoArr = snapshot.docs.map((doc) => ({
+      let todoArr = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
+      if (categorySelected) {
+        todoArr = todoArr.filter((v) => v.category === selectedCategory);
+      }
       setTodoData(todoArr);
     }
-  }, [snapshot]);
+  }, [snapshot, categorySelected, selectedCategory]);
 
   const onCheckboxChange = (e, id) => {
     const isChecked = e.target.checked;
@@ -230,7 +261,11 @@ const List = ({ userData }) => {
     <ListContainer className="List">
       <header className="list-header">
         <h1 className="list-title">To do list ⚡️</h1>
-        <Categories />
+        <Categories
+          SetselectedCategory={SetselectedCategory}
+          SetCategorySelected={SetCategorySelected}
+          selectedCategory={selectedCategory}
+        />
         <ChangeListNav
           listState={listState}
           setListState={setListState}
@@ -239,7 +274,7 @@ const List = ({ userData }) => {
       </header>
       <StyledUl className="list-ul">
         {todoData.map((data) => (
-          <li className="list" key={data.id}>
+          <li className={`list ${data.category}`} key={data.id}>
             <input
               className="checkBox"
               onChange={(e) => onCheckboxChange(e, data.id)}
