@@ -12,6 +12,7 @@ const StyledDiv = styled.div`
   align-items: center;
   :hover {
     filter: contrast(0.9);
+    cursor: pointer;
   }
 
   img {
