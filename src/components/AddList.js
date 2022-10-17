@@ -64,13 +64,18 @@ const Shadow2 = styled.div`
 const AddList = ({ userData }) => {
   const [todo, setTodo] = useState("");
   const [author, setAuthor] = useState(null);
+  const [isSubmitting, SetisSubmitting] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const createdAt = new Date().toLocaleString();
-    const data = { todo, createdAt, author, isDone: false };
-    await addDoc(collection(db, "to-do-list"), data);
-    setTodo("");
+    if (!isSubmitting) {
+      SetisSubmitting(true);
+      const createdAt = new Date().toLocaleString();
+      const data = { todo, createdAt, author, isDone: false };
+      await addDoc(collection(db, "to-do-list"), data);
+      setTodo("");
+      SetisSubmitting(false);
+    }
   };
 
   const onChange = (e) => {
