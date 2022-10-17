@@ -72,8 +72,8 @@ const AddList = ({ userData }) => {
       SetisSubmitting(true);
       const createdAt = new Date().toLocaleString();
       const data = { todo, createdAt, author, isDone: false };
-      await addDoc(collection(db, "to-do-list"), data);
       setTodo("");
+      await addDoc(collection(db, "to-do-list"), data);
       SetisSubmitting(false);
     }
   };
