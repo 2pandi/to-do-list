@@ -29,9 +29,15 @@ const Div = styled.div`
   }
 `;
 
-const Tab = ({ color, icon, desc }) => {
+const Tab = ({ color, icon, desc, onClick }) => {
   return (
-    <Div className="Tab" color={color}>
+    <Div
+      className="Tab"
+      color={color}
+      onClick={() => {
+        onClick(desc);
+      }}
+    >
       <FontAwesomeIcon className="div-icon" icon={icon} />
       {desc}
     </Div>
