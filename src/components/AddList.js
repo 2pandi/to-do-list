@@ -83,9 +83,7 @@ const AddList = ({ userData }) => {
     if (todo === "") {
       todoInput.current.focus();
       return null;
-    }
-
-    if (!isSubmitting) {
+    } else if (!isSubmitting) {
       SetisSubmitting(true);
       const createdAt = new Date().toLocaleString();
       const data = { todo, createdAt, author, category, isDone: false };
