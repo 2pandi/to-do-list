@@ -13,7 +13,8 @@ library.add(fas, faChild, faBriefcase, faEllipsisH);
 library.add(far, faStar);
 
 const Div = styled.div`
-  width: 80px;
+  box-sizing: border-box;
+  width: 90px;
   height: 2em;
   background-color: ${(props) => props.color};
   font-size: 0.9em;
@@ -22,6 +23,7 @@ const Div = styled.div`
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  user-select: none;
   cursor: pointer;
 
   .div-icon {
@@ -29,10 +31,10 @@ const Div = styled.div`
   }
 `;
 
-const Tab = ({ color, icon, desc, onClick }) => {
+const Tab = ({ color, icon, desc, onClick, selectedCategory }) => {
   return (
     <Div
-      className="Tab"
+      className={`Tab ${selectedCategory === desc.toLowerCase() && "selected"}`}
       color={color}
       onClick={() => {
         onClick(desc);
