@@ -74,6 +74,7 @@ const StyledUl = styled.ul`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    user-select: none;
     cursor: pointer;
     :hover {
       transition: all 0.3s;

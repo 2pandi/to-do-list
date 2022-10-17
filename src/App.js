@@ -18,6 +18,7 @@ const StyledApp = styled.div`
     border-radius: 20px;
     background-color: #494949;
     color: white;
+    user-select: none;
     :hover {
       cursor: pointer;
     }

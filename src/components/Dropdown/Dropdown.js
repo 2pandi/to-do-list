@@ -10,6 +10,7 @@ library.add(fas, faCaretDown);
 const StyledDropdown = styled.div`
   display: flex;
   flex-direction: column;
+  user-select: none;
 
   .dropdown-button {
     background-color: white;
