@@ -61,7 +61,7 @@ const Dropdown = ({ setListState, listState, listStates }) => {
 
   return (
     <StyledDropdown className="Dropdown">
-      <button className="dropdown-button" onClick={openToggle}>
+      <button className="dropdown-button" type="button" onClick={openToggle}>
         {`${listState} `}
         <FontAwesomeIcon icon="fas fa-caret-down" />
       </button>
