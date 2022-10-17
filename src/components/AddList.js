@@ -1,5 +1,5 @@
 import { addDoc, collection } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { db } from "../fbase";
 import Dropdown from "./Dropdown/Dropdown";
@@ -76,9 +76,15 @@ const AddList = ({ userData }) => {
   const [isSubmitting, SetisSubmitting] = useState(false);
   const [category, SetCategory] = useState("personal");
   const categories = ["personal", "work", "wish", "etc"];
+  const todoInput = useRef(null);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (todo === "") {
+      todoInput.current.focus();
+      return null;
+    }
+
     if (!isSubmitting) {
       SetisSubmitting(true);
       const createdAt = new Date().toLocaleString();
@@ -108,6 +114,7 @@ const AddList = ({ userData }) => {
           type="text"
           value={todo}
           placeholder="할 일을 적어주세요"
+          ref={todoInput}
           required
         />
         <button className="add-list button" type="button" onClick={onSubmit}>
