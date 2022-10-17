@@ -101,7 +101,7 @@ const AddList = ({ userData }) => {
 
   return (
     <>
-      <Container className="AddList">
+      <Container className="AddList" onSubmit={onSubmit}>
         <input
           className="input-box"
           onChange={onChange}
