@@ -2,6 +2,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "../fbase";
+import Dropdown from "./Dropdown/Dropdown";
 
 const Container = styled.form`
   width: 80%;
@@ -10,11 +11,11 @@ const Container = styled.form`
   border-radius: 30px;
   background-color: #e2cbff;
   margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
   grid-column: 1/2;
   grid-row: 1/2;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 114px auto;
   z-index: 3;
 
   .input-box {
@@ -22,8 +23,9 @@ const Container = styled.form`
     border: none;
     border-bottom: 1px solid black;
     background-color: transparent;
-    padding: 10px 15px;
+    padding: 30px 15px 0 15px;
     margin: 10px 20px 30px 20px;
+    grid-column: 1/3;
   }
 
   .input-box:focus {
@@ -34,6 +36,13 @@ const Container = styled.form`
     width: 90px;
     height: 30px;
     margin-left: 20px;
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+
+  .Dropdown {
+    grid-column: 2/3;
+    grid-row: 2/3;
   }
 `;
 const Shadow1 = styled.div`
@@ -65,13 +74,15 @@ const AddList = ({ userData }) => {
   const [todo, setTodo] = useState("");
   const [author, setAuthor] = useState(null);
   const [isSubmitting, SetisSubmitting] = useState(false);
+  const [category, SetCategory] = useState("personal");
+  const categories = ["personal", "work", "wish", "etc"];
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isSubmitting) {
       SetisSubmitting(true);
       const createdAt = new Date().toLocaleString();
-      const data = { todo, createdAt, author, isDone: false };
+      const data = { todo, createdAt, author, category, isDone: false };
       setTodo("");
       await addDoc(collection(db, "to-do-list"), data);
       SetisSubmitting(false);
@@ -90,7 +101,7 @@ const AddList = ({ userData }) => {
 
   return (
     <>
-      <Container className="AddList" onSubmit={onSubmit}>
+      <Container className="AddList">
         <input
           className="input-box"
           onChange={onChange}
@@ -99,7 +110,14 @@ const AddList = ({ userData }) => {
           placeholder="할 일을 적어주세요"
           required
         />
-        <button className="add-list button">Add list</button>
+        <button className="add-list button" type="button" onClick={onSubmit}>
+          Add list
+        </button>
+        <Dropdown
+          setListState={SetCategory}
+          listState={category}
+          listStates={categories}
+        />
       </Container>
       <Shadow1 className="AddList-shadow"></Shadow1>
       <Shadow2 className="AddList-shadow"></Shadow2>
