@@ -130,17 +130,21 @@ const Login = ({ setIsLoggedIn }) => {
     e.preventDefault();
     return await signInWithEmailAndPassword(auth, id, pw)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+        // const user = userCredential.user;
+        // console.log(user);
         setIsLoggedIn(true);
         auth.currentUser
           .getIdToken(true)
           .then((idToken) => {
-            console.log(idToken);
+            // console.log(idToken);
           })
-          .catch((e) => console.log(e));
+          .catch((e) => {
+            alert(e);
+          });
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        alert(e);
+      });
   };
 
   const openJoin = () => {

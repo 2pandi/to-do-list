@@ -26,8 +26,9 @@ const StyledJoin = styled.div`
   }
   .join.button {
     width: 100%;
-    grid-column: 1/3;
     height: 3em;
+    grid-column: 1/3;
+    grid-row: 7/8;
   }
   .Joined {
     grid-column: 1/3;

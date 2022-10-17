@@ -44,6 +44,7 @@ const StyledDropdown = styled.div`
     height: 30px;
     border: 0.3px solid lightgray;
     padding: 5px 5px;
+    font-size: 0.8em;
   }
 
   .dropdown-list:hover {
