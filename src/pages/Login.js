@@ -124,7 +124,7 @@ const Shadow2 = styled.div`
 const Login = ({ setIsLoggedIn }) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const [joinOpen, setJoinOpen] = useState(false);
+  const [isJoinOpened, setIsJoinOpened] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -148,11 +148,11 @@ const Login = ({ setIsLoggedIn }) => {
   };
 
   const openJoin = () => {
-    setJoinOpen(true);
+    setIsJoinOpened(true);
   };
 
   const closeJoin = () => {
-    setJoinOpen(false);
+    setIsJoinOpened(false);
   };
 
   const onGoogle = () => {
@@ -207,7 +207,7 @@ const Login = ({ setIsLoggedIn }) => {
         alt="github"
         marginTop="10"
       />
-      <Modal open={joinOpen} close={closeJoin} header="Join and Plan!">
+      <Modal open={isJoinOpened} close={closeJoin} header="Join and Plan!">
         <Join />
       </Modal>
     </StyledLogin>
