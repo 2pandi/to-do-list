@@ -18,6 +18,15 @@ const Container = styled.form`
   grid-template-rows: 114px auto;
   z-index: 3;
 
+  @media screen and (max-width: 420px) {
+    width: 90%;
+    margin-top: 30px;
+    .Dropdown {
+      margin-right: 20px;
+      justify-self: end;
+    }
+  }
+
   .input-box {
     margin-bottom: 30px;
     border: none;
@@ -43,6 +52,7 @@ const Container = styled.form`
   .Dropdown {
     grid-column: 2/3;
     grid-row: 2/3;
+    margin-left: 15px;
   }
 `;
 const Shadow1 = styled.div`
@@ -56,6 +66,10 @@ const Shadow1 = styled.div`
   grid-column: 1/2;
   z-index: 2;
   transform: rotate(-4.5deg);
+  @media screen and (max-width: 420px) {
+    width: 80%;
+    margin-top: 70px;
+  }
 `;
 const Shadow2 = styled.div`
   width: 60%;
@@ -68,6 +82,10 @@ const Shadow2 = styled.div`
   grid-column: 1/2;
   z-index: 1;
   transform: rotate(-9deg);
+  @media screen and (max-width: 420px) {
+    width: 70%;
+    margin-top: 110px;
+  }
 `;
 
 const AddList = ({ userData }) => {

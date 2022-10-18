@@ -3,11 +3,26 @@ import Tab from "./Tab";
 
 const Navbar = styled.nav`
   width: 100%;
-  display: flex;
+  display: grid;
   justify-content: space-between;
+  gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  .Tab {
+    grid-row: 1/2;
+  }
 
   .Tab.selected {
     border: 0.5px solid gray;
+  }
+
+  @media screen and (max-width: 420px) {
+    .Tab {
+      font-size: 0.75em;
+      .tab-icon {
+        display: none;
+      }
+    }
   }
 `;
 

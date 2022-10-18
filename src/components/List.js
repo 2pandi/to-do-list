@@ -32,14 +32,24 @@ const ListContainer = styled.div`
   width: 78%;
   grid-row: 2/3;
   display: grid;
-  grid-auto-rows: auto;
   grid-template-rows: 138px auto;
+
+  @media screen and (max-width: 420px) {
+    width: 85%;
+    grid-template-rows: 116px auto;
+    .list-title {
+      font-size: 1.8em;
+    }
+  }
 
   .list-header {
     grid-row: 1/2;
   }
   .list-title {
     margin: 15px 0 5px 0;
+    @media screen and (max-width: 420px) {
+      margin-top: 0;
+    }
   }
 
   .delete-check {
@@ -66,6 +76,11 @@ const StyledUl = styled.ul`
   gap: 8px;
   margin: 0 0 50px 0;
   grid-row: 2/3;
+  padding-inline-start: 0;
+
+  @media screen and (max-width: 420px) {
+    width: 100%;
+  }
 
   .checkBox {
     display: none;
@@ -83,10 +98,10 @@ const StyledUl = styled.ul`
   .list {
     box-sizing: border-box;
     height: 3em;
-    min-width: 380px;
+    width: 380px;
     border-radius: 15px;
     font-size: 1.3rem;
-    padding: 0 20px;
+    padding-left: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -94,6 +109,11 @@ const StyledUl = styled.ul`
     cursor: pointer;
     :hover {
       transition: all 0.3s;
+    }
+    @media screen and (max-width: 420px) {
+      width: 100%;
+      height: 3.7em;
+      font-size: 0.9em;
     }
   }
 

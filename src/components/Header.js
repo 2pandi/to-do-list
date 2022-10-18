@@ -12,11 +12,23 @@ const HeaderContainer = styled.div`
   .logout.button {
     width: 80px;
     height: 30px;
-    margin: 10px 50px 0 0;
+    margin: 3px 50px 0 0;
+
+    @media screen and (max-width: 420px) {
+      margin: 5px 20px 0 0;
+      font-size: 0.8em;
+      height: 23px;
+      width: 60px;
+    }
   }
   .greetings {
-    margin: 17px;
+    margin: 9px;
     font-weight: 600;
+
+    @media screen and (max-width: 420px) {
+      font-size: 0.8em;
+      margin: 10px;
+    }
   }
 `;
 

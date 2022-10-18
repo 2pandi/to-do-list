@@ -9,6 +9,10 @@ const StyledTodolist = styled.div`
   display: grid;
   justify-items: center;
   grid-template-rows: 260px auto;
+
+  @media screen and (max-width: 420px) {
+    grid-template-rows: 250px auto;
+  }
 `;
 
 const Todolist = ({ userData }) => {

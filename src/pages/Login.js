@@ -19,7 +19,7 @@ const StyledLogin = styled.div`
   grid-template-rows: 230px 100px 100px auto;
 
   .login-form {
-    min-width: 80%;
+    width: 80%;
     max-width: 390px;
     height: 180px;
     border-radius: 30px;
@@ -33,6 +33,10 @@ const StyledLogin = styled.div`
     grid-row: 1/2;
     grid-column: 1/2;
     z-index: 3;
+    @media screen and (max-width: 420px) {
+      width: 90%;
+      margin-top: 30px;
+    }
   }
 
   .label {
@@ -50,7 +54,7 @@ const StyledLogin = styled.div`
 
   .input-box {
     height: 1.5em;
-    min-width: 180px;
+    width: 180px;
     border: none;
     border-bottom: 1px solid black;
     background-color: transparent;
@@ -58,6 +62,10 @@ const StyledLogin = styled.div`
     margin: 0 30px 0 20px;
     grid-column: 2/3;
     color: #494949;
+
+    @media screen and (max-width: 420px) {
+      width: 60%;
+    }
   }
 
   .idI {
@@ -107,6 +115,11 @@ const Shadow1 = styled.div`
   grid-column: 1/2;
   z-index: 2;
   transform: rotate(-4.5deg);
+
+  @media screen and (max-width: 420px) {
+    width: 80%;
+    margin-top: 70px;
+  }
 `;
 const Shadow2 = styled.div`
   min-width: 60%;
@@ -119,6 +132,11 @@ const Shadow2 = styled.div`
   grid-column: 1/2;
   z-index: 1;
   transform: rotate(-9deg);
+
+  @media screen and (max-width: 420px) {
+    width: 70%;
+    margin-top: 110px;
+  }
 `;
 
 const Login = ({ setIsLoggedIn }) => {

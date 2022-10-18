@@ -14,7 +14,6 @@ library.add(far, faStar);
 
 const Div = styled.div`
   box-sizing: border-box;
-  width: 90px;
   height: 2em;
   background-color: ${(props) => props.color};
   font-size: 0.9em;
@@ -26,8 +25,11 @@ const Div = styled.div`
   user-select: none;
   cursor: pointer;
 
-  .div-icon {
+  .tab-icon {
     margin: 0 5px;
+  }
+  @media screen and (max-width: 420px) {
+    justify-content: center;
   }
 `;
 
@@ -40,7 +42,7 @@ const Tab = ({ color, icon, desc, onClick, selectedCategory }) => {
         onClick(desc);
       }}
     >
-      <FontAwesomeIcon className="div-icon" icon={icon} />
+      <FontAwesomeIcon className="tab-icon" icon={icon} />
       {desc}
     </Div>
   );

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-  min-width: 380px;
+  width: 380px;
   max-width: 390px;
   height: 50px;
   margin-top: ${(props) => props.marginTop}px;
@@ -15,6 +15,10 @@ const StyledDiv = styled.div`
     cursor: pointer;
   }
 
+  @media screen and (max-width: 420px) {
+    width: 90%;
+  }
+
   img {
     width: 35px;
     margin: 0 20px;
@@ -24,7 +28,7 @@ const StyledDiv = styled.div`
 const LoginIcon = ({ onClick, src, alt, marginTop }) => {
   return (
     <>
-      <StyledDiv onClick={onClick} marginTop={marginTop}>
+      <StyledDiv className="LoginIcon" onClick={onClick} marginTop={marginTop}>
         <img src={src} alt={alt} />
         Sign in with {alt}
       </StyledDiv>

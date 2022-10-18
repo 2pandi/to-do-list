@@ -11,6 +11,7 @@ const StyledDropdown = styled.div`
   display: flex;
   flex-direction: column;
   user-select: none;
+  width: 110px;
 
   .dropdown-button {
     background-color: white;

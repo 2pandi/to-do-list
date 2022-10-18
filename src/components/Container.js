@@ -10,6 +10,11 @@ const StyledContainer = styled.div`
   border-radius: 30px;
   overflow-y: scroll;
 
+  @media screen and (max-width: 420px) {
+    width: 90vw;
+    height: 90vh;
+  }
+
   ::-webkit-scrollbar {
     background-color: transparent;
     width: 10px;
