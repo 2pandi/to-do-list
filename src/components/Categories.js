@@ -12,18 +12,18 @@ const Navbar = styled.nav`
 `;
 
 const Categories = ({
-  SetselectedCategory,
-  SetCategorySelected,
+  setSelectedCategory,
+  setCategorySelected,
   selectedCategory,
 }) => {
   const onTabClick = (desc) => {
     const innerText = desc.toLowerCase();
     if (selectedCategory !== innerText) {
-      SetselectedCategory(innerText);
-      SetCategorySelected(true);
+      setSelectedCategory(innerText);
+      setCategorySelected(true);
     } else {
-      SetselectedCategory(null);
-      SetCategorySelected(false);
+      setSelectedCategory(null);
+      setCategorySelected(false);
     }
   };
 
