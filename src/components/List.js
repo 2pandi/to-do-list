@@ -22,6 +22,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../fbase";
+import Modal from "../pages/Modal";
 
 library.add(fas, faCheckCircle, faTrashAlt);
 library.add(far, faCircle);
@@ -39,6 +40,21 @@ const ListContainer = styled.div`
   }
   .list-title {
     margin: 15px 0 5px 0;
+  }
+
+  .delete-check {
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+
+    .delCheck.button {
+      height: 2em;
+      width: 80px;
+      margin-top: 15px;
+    }
   }
 `;
 
@@ -110,6 +126,7 @@ const StyledUl = styled.ul`
   }
 
   .edit-list {
+    width: 100%;
     font-size: 0.8em;
     border: none;
     border-bottom: 1px solid black;
@@ -122,8 +139,13 @@ const StyledUl = styled.ul`
 
   .edit.button {
     height: 30px;
-    width: 50px;
+    width: 70px;
+    margin: 0 5px;
     background-color: #009e76;
+  }
+
+  .list-text {
+    width: 100%;
   }
 
   .checkBox:checked ~ .list-text {
@@ -172,12 +194,14 @@ const List = ({ userData }) => {
   const [snapshot, setSnapshot] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingTodoId, SetEditingTodoId] = useState(null);
+  const [deletingTodoId, setDeletingTodoId] = useState(null);
+  const [editingTodoId, setEditingTodoId] = useState(null);
   const [inputValue, setInputValue] = useState(null);
   const [listState, setListState] = useState("전체 리스트");
   const [authorUid, setAuthorUid] = useState(null);
-  const [selectedCategory, SetselectedCategory] = useState(null);
-  const [categorySelected, SetCategorySelected] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categorySelected, setCategorySelected] = useState(false);
+  const [isDelCheckOpened, setIsDelCheckOpened] = useState(false);
 
   useEffect(() => {
     if (userData) {
@@ -240,11 +264,12 @@ const List = ({ userData }) => {
   const deleteTodo = (id) => {
     const targetdoc = doc(db, `to-do-list/${id}`);
     deleteDoc(targetdoc);
+    setIsDelCheckOpened(false);
   };
 
   const onListClick = (id, todo) => {
     setIsEditing(true);
-    SetEditingTodoId(id);
+    setEditingTodoId(id);
     setInputValue(todo);
   };
 
@@ -257,14 +282,23 @@ const List = ({ userData }) => {
     setIsEditing(false);
   };
 
+  const openDelCheck = (id) => {
+    setDeletingTodoId(id);
+    setIsDelCheckOpened(true);
+  };
+
+  const closeDelCheck = () => {
+    setIsDelCheckOpened(false);
+  };
+
   console.log("렌더링됨");
   return (
     <ListContainer className="List">
       <header className="list-header">
         <h1 className="list-title">To do list ⚡️</h1>
         <Categories
-          SetselectedCategory={SetselectedCategory}
-          SetCategorySelected={SetCategorySelected}
+          setSelectedCategory={setSelectedCategory}
+          setCategorySelected={setCategorySelected}
           selectedCategory={selectedCategory}
         />
         <ChangeListNav
@@ -327,7 +361,8 @@ const List = ({ userData }) => {
                 <FontAwesomeIcon
                   className="trash icon"
                   id={data.id}
-                  onClick={() => deleteTodo(data.id)}
+                  onClick={() => openDelCheck(data.id)}
+                  // onClick={() => deleteTodo(data.id)}
                   icon="fas fa-trash-alt"
                 />
               )}
@@ -335,6 +370,21 @@ const List = ({ userData }) => {
           </li>
         ))}
       </StyledUl>
+      <Modal
+        open={isDelCheckOpened}
+        close={closeDelCheck}
+        header="Are you sure?"
+      >
+        <div className="delete-check">
+          정말 삭제하시겠어요? 😲
+          <button
+            className="delCheck button"
+            onClick={() => deleteTodo(deletingTodoId)}
+          >
+            삭제하기
+          </button>
+        </div>
+      </Modal>
     </ListContainer>
   );
 };
