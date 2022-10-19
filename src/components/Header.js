@@ -15,7 +15,7 @@ const HeaderContainer = styled.div`
     margin: 3px 50px 0 0;
 
     @media screen and (max-width: 420px) {
-      margin: 5px 20px 0 0;
+      margin: 10px 20px 0 0;
       font-size: 0.8em;
       height: 23px;
       width: 60px;
@@ -27,7 +27,7 @@ const HeaderContainer = styled.div`
 
     @media screen and (max-width: 420px) {
       font-size: 0.8em;
-      margin: 10px;
+      margin: 15px;
     }
   }
 `;

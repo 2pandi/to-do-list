@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
 
   @media screen and (max-width: 420px) {
     width: 90vw;
-    height: 90vh;
+    height: 85vh;
   }
 
   ::-webkit-scrollbar {
